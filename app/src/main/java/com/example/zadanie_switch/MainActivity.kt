@@ -12,37 +12,42 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val sortuj_butt = findViewById<Button>(R.id.Sortuj)
-        val losuj_butt = findViewById<Button>(R.id.Losuj)
-        var wynik = findViewById<TextView>(R.id.wynik)
-        val ListaSwitchy: List<Switch> = listOf(
-            findViewById<Switch>(R.id.liczba1),
-            findViewById<Switch>(R.id.liczba2),
-            findViewById<Switch>(R.id.liczba3),
-            findViewById<Switch>(R.id.liczba4),
-            findViewById<Switch>(R.id.liczba5),
-            findViewById<Switch>(R.id.liczba6),
-            findViewById<Switch>(R.id.liczba7),
-            findViewById<Switch>(R.id.liczba8),
-            findViewById<Switch>(R.id.liczba9)
+        val sortujButt = findViewById<Button>(R.id.Sortuj)
+        val losujButt = findViewById<Button>(R.id.Losuj)
+        val wynik = findViewById<TextView>(R.id.wynik)
+        val listaSwitchy: List<Switch> = listOf(
+            findViewById(R.id.liczba1),
+            findViewById(R.id.liczba2),
+            findViewById(R.id.liczba3),
+            findViewById(R.id.liczba4),
+            findViewById(R.id.liczba5),
+            findViewById(R.id.liczba6),
+            findViewById(R.id.liczba7),
+            findViewById(R.id.liczba8),
+            findViewById(R.id.liczba9)
         )
 
-        losuj_butt.setOnClickListener {
+        losujButt.setOnClickListener {
             for(i in 0..8)
             {
                 val liczba = Random.nextInt(0,100)
-                ListaSwitchy[i].text = liczba.toString()
+                listaSwitchy[i].text = liczba.toString()
             }
-        sortuj_butt.setOnClickListener {
-            val Lista: MutableList<Int> = mutableListOf()
+        sortujButt.setOnClickListener {
+            val lista: MutableList<Int> = mutableListOf()
             for (i in 0..8) {
-                if (ListaSwitchy[i].isChecked)
-                    Lista.add(ListaSwitchy[i].text.toString().toInt())
+                if (listaSwitchy[i].isChecked)
+                    lista.add(listaSwitchy[i].text.toString().toInt())
             }
-
-
-
-            wynik.text = Lista.toString()
+            for (i in 0 until  lista.size-1)
+                for(j in 0 until  lista.size-1)
+                    if(lista[j] > lista[j+1])
+                    {
+                        val pom = lista[j]
+                        lista[j] = lista[j+1]
+                        lista[j+1] = pom
+                    }
+            wynik.text = lista.toString()
 
         }
         }
