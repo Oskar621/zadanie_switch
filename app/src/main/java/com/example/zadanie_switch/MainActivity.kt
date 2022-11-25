@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Switch
+import android.widget.TextView
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -13,6 +14,7 @@ class MainActivity : AppCompatActivity() {
 
         val sortuj_butt = findViewById<Button>(R.id.Sortuj)
         val losuj_butt = findViewById<Button>(R.id.Losuj)
+        var wynik = findViewById<TextView>(R.id.wynik)
         val ListaSwitchy: List<Switch> = listOf(
             findViewById<Switch>(R.id.liczba1),
             findViewById<Switch>(R.id.liczba2),
@@ -29,10 +31,20 @@ class MainActivity : AppCompatActivity() {
             for(i in 0..8)
             {
                 val liczba = Random.nextInt(0,100)
-                 ListaSwitchy[i].text = liczba.toString()
+                ListaSwitchy[i].text = liczba.toString()
+            }
+        sortuj_butt.setOnClickListener {
+            val Lista: MutableList<Int> = mutableListOf()
+            for (i in 0..8) {
+                if (ListaSwitchy[i].isChecked)
+                    Lista.add(ListaSwitchy[i].text.toString().toInt())
             }
 
 
+
+            wynik.text = Lista.toString()
+
+        }
         }
 
     }
